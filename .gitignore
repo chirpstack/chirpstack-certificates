@@ -1,0 +1,5 @@
+# generated certificates
+certs/*
+
+# hidden files
+.*
