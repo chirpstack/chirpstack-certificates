@@ -23,9 +23,17 @@ certs/loraserver/api: certs/ca
 certs/lora-app-server/api: certs/ca
 	mkdir -p certs/lora-app-server/api/server
 	mkdir -p certs/lora-app-server/api/client
+	mkdir -p certs/lora-app-server/join-api/server
+	mkdir -p certs/lora-app-server/join-api/client
 
 	# lora-app-server api server certificate
 	cfssl gencert -ca certs/ca/ca.pem -ca-key certs/ca/ca-key.pem -config config/ca-config.json -profile server config/lora-app-server/api/server/certificate.json | cfssljson -bare certs/lora-app-server/api/server/lora-app-server-api-server
 
 	# lora-app-server api client certificate (e.g. for loraserver)
 	cfssl gencert -ca certs/ca/ca.pem -ca-key certs/ca/ca-key.pem -config config/ca-config.json -profile client config/lora-app-server/api/client/certificate.json | cfssljson -bare certs/lora-app-server/api/client/lora-app-server-api-client
+
+	# lora-app-server join api server certificate
+	cfssl gencert -ca certs/ca/ca.pem -ca-key certs/ca/ca-key.pem -config config/ca-config.json -profile server config/lora-app-server/join-api/server/certificate.json | cfssljson -bare certs/lora-app-server/join-api/server/lora-app-server-join-api-server
+
+	# lora-app-server join api client certificate (e.g. for loraserver)
+	cfssl gencert -ca certs/ca/ca.pem -ca-key certs/ca/ca-key.pem -config config/ca-config.json -profile client config/lora-app-server/join-api/client/certificate.json | cfssljson -bare certs/lora-app-server/join-api/client/lora-app-server-join-api-client

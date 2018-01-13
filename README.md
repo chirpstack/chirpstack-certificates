@@ -90,3 +90,33 @@ files under *Certificates for LoRa Server to LoRa App Server connection*:
 * **CA certificate** content of `certs/ca/ca.pem`
 * **TLS certificate** content of `certs/lora-app-server/api/client/lora-app-server-api-client.pem`
 * **TLS key** content of `certs/lora-app-server/api/client/lora-app-server-api-client-key.pem`
+
+### certs/lora-app-server/join-api
+
+These certificates are for securing the LoRa App Server Join API which is by
+default listening on port `8003` (see `--js-bind`).
+
+#### server
+
+These are the certificates for the server-side of the Join API. Configuration
+example (LoRa App Server):
+
+```
+--js-ca-cert  certs/ca/ca.pem
+--js-tls-cert certs/lora-app-server/join-api/server/lora-app-server-join-api-server.pem
+--js-tls-key  certs/lora-app-server/join-api/server/lora-app-server-join-api-server-key.pem
+```
+
+#### client
+
+**Important:** the `CN` of the client certificate must match the `--net-id`
+of the LoRa Server instance using the certificate.
+
+These are the client-side certificates (used by LoRa Server) to connect to the LoRa Server
+Join API. Configuration example (LoRa Server):
+
+```
+--js-ca-cert  certs/ca/ca.pem
+--js-tls-cert certs/lora-app-server/join-api/client/lora-app-server-join-api-client.pem
+--js-tls-key  certs/lora-app-server/join-api/client/lora-app-server-join-api-client-key.pem
+```
