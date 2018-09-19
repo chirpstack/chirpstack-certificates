@@ -1,4 +1,4 @@
-make: certs/ca certs/loraserver/api certs/lora-app-server/api
+make: certs/ca certs/loraserver/api certs/lora-app-server/api certs/lora-geo-server/api
 
 docker:
 	docker run --rm cfssl make
@@ -37,3 +37,13 @@ certs/lora-app-server/api: certs/ca
 
 	# lora-app-server join api client certificate (e.g. for loraserver)
 	cfssl gencert -ca certs/ca/ca.pem -ca-key certs/ca/ca-key.pem -config config/ca-config.json -profile client config/lora-app-server/join-api/client/certificate.json | cfssljson -bare certs/lora-app-server/join-api/client/lora-app-server-join-api-client
+
+certs/lora-geo-server/api: certs/ca
+	mkdir -p certs/lora-geo-server/api/server
+	mkdir -p certs/lora-geo-server/api/client
+
+	# lora-geo-server api server certificate
+	cfssl gencert -ca certs/ca/ca.pem -ca-key certs/ca/ca-key.pem -config config/ca-config.json -profile server config/lora-geo-server/api/server/certificate.json | cfssljson -bare certs/lora-geo-server/api/server/lora-geo-server-api-server
+
+	# lora-geo-server api client certificate
+	cfssl gencert -ca certs/ca/ca.pem -ca-key certs/ca/ca-key.pem -config config/ca-config.json -profile client config/lora-geo-server/api/client/certificate.json | cfssljson -bare certs/lora-geo-server/api/client/lora-geo-server-api-client
