@@ -1,4 +1,4 @@
-make: certs/ca certs/loraserver/api certs/lora-app-server/api certs/lora-geo-server/api
+make: certs/ca certs/loraserver/api certs/lora-app-server/api certs/lora-geo-server/api certs/lora-gateway-bridge/basicstation
 
 docker:
 	docker run --rm cfssl make
@@ -47,3 +47,14 @@ certs/lora-geo-server/api: certs/ca
 
 	# lora-geo-server api client certificate
 	cfssl gencert -ca certs/ca/ca.pem -ca-key certs/ca/ca-key.pem -config config/ca-config.json -profile client config/lora-geo-server/api/client/certificate.json | cfssljson -bare certs/lora-geo-server/api/client/lora-geo-server-api-client
+
+certs/lora-gateway-bridge/basicstation: certs/ca
+	mkdir -p certs/lora-gateway-bridge/basicstation/server
+	mkdir -p certs/lora-gateway-bridge/basicstation/client
+
+	# basicstation websocket server certificate
+	cfssl gencert -ca certs/ca/ca.pem -ca-key certs/ca/ca-key.pem -config config/ca-config.json -profile server config/lora-gateway-bridge/basicstation/server/certificate.json | cfssljson -bare certs/lora-gateway-bridge/basicstation/server/basicstation-server
+
+	# basicstation websocket client (gateway) certificate
+	cfssl gencert -ca certs/ca/ca.pem -ca-key certs/ca/ca-key.pem -config config/ca-config.json -profile client config/lora-gateway-bridge/basicstation/client/certificate.json | cfssljson -bare certs/lora-gateway-bridge/basicstation/client/basicstation-client
+
