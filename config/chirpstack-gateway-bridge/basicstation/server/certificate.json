@@ -1,5 +1,5 @@
 {
-    "CN": "lora-gateway-bridge",
+    "CN": "chirpstack-gateway-bridge",
     "hosts": [
       "127.0.0.1",
       "localhost"

@@ -1,5 +1,5 @@
 {
-    "CN": "network-server",
+    "CN": "chirpstack-application-server-join-api",
     "hosts": [
       "127.0.0.1",
       "localhost"
