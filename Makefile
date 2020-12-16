@@ -1,4 +1,9 @@
-make: certs/ca certs/chirpstack-network-server/api certs/chirpstack-network-server/roaming certs/chirpstack-application-server/api certs/chirpstack-gateway-bridge/basicstation
+make: certs/ca \
+	certs/chirpstack-network-server/api \
+	certs/chirpstack-network-server/roaming \
+	certs/chirpstack-application-server/api \
+	certs/chirpstack-gateway-bridge/basicstation \
+	certs/mqtt
 
 docker:
 	docker run --rm cfssl make
@@ -54,11 +59,12 @@ certs/chirpstack-application-server/api: certs/ca
 
 certs/chirpstack-gateway-bridge/basicstation: certs/ca
 	mkdir -p certs/chirpstack-gateway-bridge/basicstation/server
-	mkdir -p certs/chirpstack-gateway-bridge/basicstation/client
 
 	# basicstation websocket server certificate
 	cfssl gencert -ca certs/ca/ca.pem -ca-key certs/ca/ca-key.pem -config config/ca-config.json -profile server config/chirpstack-gateway-bridge/basicstation/server/certificate.json | cfssljson -bare certs/chirpstack-gateway-bridge/basicstation/server/basicstation-server
 
-	# basicstation websocket client (gateway) certificate
-	cfssl gencert -ca certs/ca/ca.pem -ca-key certs/ca/ca-key.pem -config config/ca-config.json -profile client config/chirpstack-gateway-bridge/basicstation/client/certificate.json | cfssljson -bare certs/chirpstack-gateway-bridge/basicstation/client/basicstation-client
+certs/mqtt: certs/ca
+	mkdir -p certs/mqtt/server
 
+	# MQTT broker / server certificate
+	cfssl gencert -ca certs/ca/ca.pem -ca-key certs/ca/ca-key.pem -config config/ca-config.json -profile server config/mqtt/server/certificate.json | cfssljson -bare certs/mqtt/server/mqtt-server
