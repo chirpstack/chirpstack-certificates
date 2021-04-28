@@ -117,9 +117,9 @@ These are the client-side certificates (used by ChirpStack) to connect to the Ch
 Join API and must be configured in `chirpstack-network-server.toml`. Example:
 
 ```toml
-js_ca_cert="certs/ca/ca.pem"
-js_tls_cert="certs/chirpstack-application-server/join-api/client/chirpstack-application-server-join-api-client.pem"
-js_tls_key="certs/chirpstack-application-server/join-api/client/chirpstack-application-server-join-api-client-key.pem"
+ca_cert="certs/ca/ca.pem"
+tls_cert="certs/chirpstack-application-server/join-api/client/chirpstack-application-server-join-api-client.pem"
+tls_key="certs/chirpstack-application-server/join-api/client/chirpstack-application-server-join-api-client-key.pem"
 ```
 
 ### certs/mqtt
@@ -166,7 +166,7 @@ integrations, you must configure the following section in the
 `chirpstack-application-server.toml` file:
 
 ```toml
-[application_server.integration.mqtt.client]
+[application_server.integration.mqtt]
 ca_cert="certs/ca/ca.pem"
 ca_key="certs/ca/ca-key.pem"
 ```
