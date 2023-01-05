@@ -18,6 +18,20 @@ You probably want to make changes to the `certificate.json` files under
 `config`. Please see [https://cfssl.org](https://cfssl.org) for documentation
 about the `cfssl` usage.
 
+## Generating certificates using docker
+
+An alternate way to generate the certificates that does not require to have the
+different dependencies installed is by using docker (you will need docker, of course).
+
+```
+docker compose run --rm chirpstack-certificates
+```
+
+Note: using docker can be also useful to run it along with the full ChirpStack stack and
+share the generated certificates across the different services. 
+The image accepts a HOSTS environment variable to change the `certificate.json` files
+accordingly and takes care of recreating the certificates if that setting changes.
+
 ## Certificates
 
 ### certs/ca
