@@ -5,6 +5,6 @@ services:
   chirpstack-certificates:
     build: .
     environment:
-      - HOSTS=127.0.0.1,localhost,lns.example.com
+      - HOSTS=${HOSTS:-127.0.0.1,localhost}
     volumes: 
       - ./certs:/opt/chirpstack-certificates/certs

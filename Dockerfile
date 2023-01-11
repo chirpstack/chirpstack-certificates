@@ -2,7 +2,7 @@ FROM --platform=$BUILDPLATFORM alpine:3.17.0
 ARG BUILDPLATFORM
 
 # Install dependencies
-RUN apk add --no-cache bash make curl jq
+RUN apk add --no-cache make curl jq
 
 # Install cfssl and cfssljson
 RUN case "$BUILDPLATFORM" in \
@@ -22,8 +22,8 @@ WORKDIR /opt/chirpstack-certificates
 
 # Add entry point script
 ADD config ./config
-ADD Makefile entrypoint.sh .
+ADD Makefile entrypoint.sh set-hosts.sh ./
 RUN chmod +x *.sh
 
 # Launch the script on container startup
-CMD ["bash", "entrypoint.sh"]
+CMD ["sh", "entrypoint.sh"]

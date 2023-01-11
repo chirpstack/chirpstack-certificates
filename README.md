@@ -8,6 +8,18 @@ This repository contains configuration to generate certificates for the
 For generating the certificates, [cfssl](https://github.com/cloudflare/cfssl)
 is being used. Make sure you have this tool installed.
 
+To modify the hosts using the `set-hosts` command you will need
+[jq](https://stedolan.github.io/jq/) installed.
+
+## Modifying hosts
+
+You can modify all `certificate.json` files at once with specific hosts with the
+`set-hosts` command:
+
+```
+HOSTS=127.0.0.1,localhost,lns.example.com make set-hosts
+```
+
 ## Generating certificates
 
 Simply run `make` to generate all certificates. All certificates will be

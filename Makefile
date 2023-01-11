@@ -5,8 +5,11 @@ make: certs/ca \
 	certs/chirpstack-gateway-bridge/basicstation \
 	certs/mqtt
 
+set-hosts:
+	sh set-hosts.sh
+
 docker:
-	docker run --rm cfssl make
+	docker compose run --rm chirpstack-certificates
 
 clean:
 	rm -rf certs
