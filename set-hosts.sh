@@ -25,4 +25,3 @@ do
     contents=$(eval jq \'${COMMAND}\' $FOLDER/certificate.json)
     echo "${contents}" > $FOLDER/certificate.json
 done
-

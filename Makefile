@@ -1,4 +1,4 @@
-make: certs/ca \
+generate: certs/ca \
 	certs/chirpstack-network-server/api \
 	certs/chirpstack-network-server/roaming \
 	certs/chirpstack-application-server/api \
@@ -6,7 +6,7 @@ make: certs/ca \
 	certs/mqtt
 
 set-hosts:
-	sh set-hosts.sh
+	./set-hosts.sh
 
 docker:
 	docker compose run --rm chirpstack-certificates

@@ -36,7 +36,8 @@ An alternate way to generate the certificates that does not require to have the
 different dependencies installed is by using docker (you will need docker, of course).
 
 ```
-docker compose run --rm chirpstack-certificates
+docker-compose run -e HOSTS="127.0.0.1,localhost,lns.example.com" --rm chirpstack-certificates make set-hosts
+docker-compose run --rm chirpstack-certificates make
 ```
 
 Note: using docker can be also useful to run it along with the full ChirpStack stack and
