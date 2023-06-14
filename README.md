@@ -31,6 +31,16 @@ CHIRPSTACK_GATEWAY_BRIDGE_HOSTS=127.0.0.1,localhost,cgwb.example.com \
 make set-hosts
 ```
 
+The `make set-hosts` accepts the following environment variables:
+
+* `MQTT_BROKER_HOSTS`: comma-separated list of hostnames for the MQTT broker
+* `CHIRPSTACK_GATEWAY_BRIDGE_HOSTS`: comma-separated list of hostnames for the ChirpStack Gateway Bridge (Basics Station backend)
+
+In case the environment variable is not specified, then it will fallback to
+`127.0.0.1,localhost`.
+
+## Modifying hosts using Docker Compose
+
 Using Docker Compose, you can use the following command:
 
 ```
@@ -50,20 +60,14 @@ You probably want to make changes to the `certificate.json` files under
 `config`. Please see [https://cfssl.org](https://cfssl.org) for documentation
 about the `cfssl` usage.
 
-## Generating certificates using docker
+## Generating certificates using Docker Compose
 
 An alternate way to generate the certificates that does not require to have the
 different dependencies installed is by using docker (you will need docker, of course).
 
 ```
-docker-compose run -e HOSTS="127.0.0.1,localhost,lns.example.com" --rm chirpstack-certificates make set-hosts
 docker-compose run --rm chirpstack-certificates make
 ```
-
-Note: using docker can be also useful to run it along with the full ChirpStack stack and
-share the generated certificates across the different services. 
-The image accepts a HOSTS environment variable to change the `certificate.json` files
-accordingly and takes care of recreating the certificates if that setting changes.
 
 ## Certificates
 
