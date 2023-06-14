@@ -3,7 +3,5 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-devel
-    environment:
-      - HOSTS=${HOSTS:-127.0.0.1,localhost}
     volumes: 
       - ./:/chirpstack-certificates
