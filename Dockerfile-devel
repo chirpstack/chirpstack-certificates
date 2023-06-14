@@ -1,0 +1,6 @@
+FROM alpine:edge
+
+WORKDIR /chirpstack-certificates
+
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+RUN apk add --no-cache make curl jq cfssl bash

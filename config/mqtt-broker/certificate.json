@@ -1,11 +1,11 @@
 {
-	"CN": "mqtt-broker",
-	"hosts": [
-		"127.0.0.1",
-		"localhost"
-	],
-	"key": {
-		"algo": "rsa",
-		"size": 2048
-	}
+  "CN": "mqtt-broker",
+  "hosts": [
+    "127.0.0.1",
+    "localhost"
+  ],
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  }
 }

@@ -1,9 +1,16 @@
+MQTT_BROKER_HOSTS ?= 127.0.0.1,localhost
+CHIRPSTACK_GATEWAY_BRIDGE_HOSTS ?= 127.0.0.1,localhost
+
 make: certs/ca \
 	certs/chirpstack-gateway-bridge/basicstation \
 	certs/mqtt-broker
 
+set-hosts:
+	./set-hosts.sh config/mqtt-broker/certificate.json $(MQTT_BROKER_HOSTS)
+	./set-hosts.sh config/chirpstack-gateway-bridge/basicstation/certificate.json $(CHIRPSTACK_GATEWAY_BRIDGE_HOSTS)
+
 docker:
-	docker run --rm cfssl make
+	docker compose run --rm chirpstack-certificates
 
 clean:
 	rm -rf certs

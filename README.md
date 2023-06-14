@@ -17,6 +17,39 @@ connections and the per-application MQTT integration connections:
 For generating the certificates, [cfssl](https://github.com/cloudflare/cfssl)
 is used. Make sure you have this tool installed.
 
+To modify the hosts using the `set-hosts` command you will need
+[jq](https://stedolan.github.io/jq/) installed.
+
+## Modifying hosts
+
+You can modify all `certificate.json` files at once with specific hosts with the
+`make set-hosts` command:
+
+```
+MQTT_BROKER_HOSTS=127.0.0.1,localhost,mqtt.example.com \
+CHIRPSTACK_GATEWAY_BRIDGE_HOSTS=127.0.0.1,localhost,cgwb.example.com \
+make set-hosts
+```
+
+The `make set-hosts` accepts the following environment variables:
+
+* `MQTT_BROKER_HOSTS`: comma-separated list of hostnames for the MQTT broker
+* `CHIRPSTACK_GATEWAY_BRIDGE_HOSTS`: comma-separated list of hostnames for the ChirpStack Gateway Bridge (Basics Station backend)
+
+In case the environment variable is not specified, then it will fallback to
+`127.0.0.1,localhost`.
+
+## Modifying hosts using Docker Compose
+
+Using Docker Compose, you can use the following command:
+
+```
+docker-compose run --rm \
+    -e MQTT_BROKER_HOSTS="localhost,mqtt.example.com" \
+    -e CHIRPSTACK_GATEWAY_BRIDGE_HOSTS="localhost,cgwb.example.com" \
+    chirpstack-certificates make set-hosts
+```
+
 ## Generating certificates
 
 Simply run `make` to generate all certificates. All certificates will be
@@ -26,6 +59,15 @@ being executed.
 You probably want to make changes to the `certificate.json` files under
 `config`. Please see [https://cfssl.org](https://cfssl.org) for documentation
 about the `cfssl` usage.
+
+## Generating certificates using Docker Compose
+
+An alternate way to generate the certificates that does not require to have the
+different dependencies installed is by using docker (you will need docker, of course).
+
+```
+docker-compose run --rm chirpstack-certificates make
+```
 
 ## Certificates
 
